@@ -1,0 +1,2 @@
+# GLISTR
+Segmentation algorithm. DEPRECATED
