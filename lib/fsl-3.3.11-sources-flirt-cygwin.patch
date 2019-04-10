@@ -1,0 +1,78 @@
+diff -rupN fsl/extras/src/newmat/include.h fsl_patch/extras/src/newmat/include.h
+--- fsl/extras/src/newmat/include.h	2003-06-04 08:52:23.000000000 -0400
++++ fsl_patch/extras/src/newmat/include.h	2014-10-16 21:25:20.751768900 -0400
+@@ -30,7 +30,7 @@
+ #define bool_LIB 0
+ 
+ 
+-//#define _STANDARD_                    // using standard library
++#define _STANDARD_                    // using standard library
+ 
+ //#define use_float_h                   // use float.h for precision data
+ 
+diff -rupN fsl/extras/src/newmat/newmat.h fsl_patch/extras/src/newmat/newmat.h
+--- fsl/extras/src/newmat/newmat.h	2003-06-04 08:52:24.000000000 -0400
++++ fsl_patch/extras/src/newmat/newmat.h	2014-10-16 21:34:47.505185300 -0400
+@@ -10,7 +10,6 @@
+ #include "boolean.h"
+ #include "myexcept.h"
+ 
+-
+ #ifdef use_namespace
+ namespace NEWMAT { using namespace RBD_COMMON; }
+ namespace RBD_LIBRARIES { using namespace NEWMAT; }
+@@ -1211,6 +1210,12 @@ public:
+    NEW_DELETE(SPMatrix)
+ };
+ 
++#ifndef TEMPS_DESTROYED_QUICKLY
++SPMatrix SP(const BaseMatrix&, const BaseMatrix&);
++#else
++SPMatrix& SP(const BaseMatrix&, const BaseMatrix&);
++#endif
++
+ class ConcatenatedMatrix : public MultipliedMatrix
+ {
+ protected:
+diff -rupN fsl/src/newimage/lazy.h fsl_patch/src/newimage/lazy.h
+--- fsl/src/newimage/lazy.h	2006-04-07 08:56:34.000000000 -0400
++++ fsl_patch/src/newimage/lazy.h	2014-10-16 21:28:39.535138700 -0400
+@@ -69,6 +69,10 @@
+ #if !defined(__lazy_h)
+ #define __lazy_h
+ 
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++
+ #include <iostream>
+ #include <map>
+ 
+diff -rupN fsl/src/utils/options.h fsl_patch/src/utils/options.h
+--- fsl/src/utils/options.h	2006-04-07 08:56:48.000000000 -0400
++++ fsl_patch/src/utils/options.h	2014-10-16 21:29:04.705578300 -0400
+@@ -65,6 +65,10 @@
+ #if !defined(OPTIONS_H)
+ #define OPTIONS_H
+ 
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++
+ #include <stdexcept>
+ #include <string>
+ #include <vector>
+diff -rupN fsl/src/utils/time_tracer.h fsl_patch/src/utils/time_tracer.h
+--- fsl/src/utils/time_tracer.h	2006-04-07 08:56:49.000000000 -0400
++++ fsl_patch/src/utils/time_tracer.h	2014-10-16 21:29:03.450506500 -0400
+@@ -69,6 +69,10 @@
+ #if !defined(Time_Tracer_h)
+ #define Time_Tracer_h
+ 
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++
+ #include <iostream>
+ #include <fstream>
+ #include <string>

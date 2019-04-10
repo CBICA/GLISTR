@@ -1,0 +1,116 @@
+# -*- coding: utf-8 -*-
+#
+# Default documentation build configuration file for Sphinx.
+#
+# This file is execfile()d with the current directory set to its containing dir.
+#
+# The contents of this file are pickled, so don't put values in the namespace
+# that aren't pickleable (module imports are okay, they're removed automatically).
+#
+# All configuration values have a default value; values that are commented out
+# serve to show the default value.
+
+import sys
+import os
+
+
+# Change the font size for code block in latex
+# --------------------------------------------
+from sphinx.highlighting import PygmentsBridge
+from pygments.formatters.latex import LatexFormatter
+
+class CustomLatexFormatter(LatexFormatter):
+    def __init__(self, **options):
+        super(CustomLatexFormatter, self).__init__(**options)
+        self.verboptions = r"formatcom=\footnotesize"
+
+PygmentsBridge.latex_formatter = CustomLatexFormatter
+
+
+# General configuration
+# ---------------------
+
+authors = ['Dongjin Kwon', 'Ali Gooya', 'Andreas Schuh']
+output_name = '@DOCUMENTATION_NAME@'.replace(' ', '_') # otherwise generated Makefile's do not work
+
+#today     = ''
+#today_fmt = '%B %d, %Y'
+
+exclude_patterns = ['**/.svn', '**/.git', '**/CMakeFiles/**', '**/CMakeLists.txt']
+exclude_patterns.extend([])
+
+templates_path = []
+
+source_suffix = '.rst'
+master_doc = 'index'
+
+project   = 'GLISTR'
+version   = '3.0.0'
+release   = '3.0.0'
+copyright = '2014 University of Pennsylvania'
+
+
+# Options for HTML output
+# -----------------------
+
+html_static_path = ['@CMAKE_CURRENT_SOURCE_DIR@/static']
+
+html_theme = 'sbia'
+html_theme_path = ['', '@CMAKE_CURRENT_SOURCE_DIR@/themes']
+if html_theme_path[0] == '': html_theme_path.pop(0)
+
+html_theme_options = {'rellinks': ['about', 'download', 'installation', 'manual', 'changelog', 'publications', 'people'], 'sidebarwidth': '280'}
+html_sidebars = {'**': ['searchbox.html', 'globaltoc.html']}
+
+html_style = 'style.css'
+if html_style == '': html_style = None
+
+html_logo = '@CMAKE_CURRENT_SOURCE_DIR@/static/logo.png'
+if html_logo == '': html_logo = None
+
+html_title = ''
+if html_title == '': html_title = 'GLISTR'
+
+html_short_title = ''
+if html_short_title == '': html_short_title = html_title
+
+htmlhelp_basename = 'glistr_doc'
+
+
+# Options for LaTeX output
+# ------------------------
+
+latex_documents     = [(master_doc, output_name + '.tex', 'GLISTR Software Manual', ' \\and '.join(authors), 'howto', False)]
+#latex_logo          = '@CMAKE_CURRENT_SOURCE_DIR@/static/logo.png'
+latex_logo          = ''
+if latex_logo == '': latex_logo = None
+latex_show_urls     = 'no'
+latex_show_pagerefs = False
+
+PREAMBLE = """
+\setcounter{page}{1}
+\pagenumbering{arabic}
+\\renewcommand{\code}[1]{\\texttt{\\footnotesize{#1}}}
+"""
+
+latex_elements = {'printindex': '', 'preamble': PREAMBLE, 'releasename': 'Version', 'date': ''}
+
+
+# Options for MAN output
+# ----------------------
+
+man_pages = [(master_doc, output_name, 'GLioma Image SegmenTation and Registration', authors, 7)]
+
+
+# Options for Texinfo output
+# --------------------------
+
+texinfo_documents = [(master_doc, output_name, '', '@*'.join(authors), 'GLISTR', 'GLioma Image SegmenTation and Registration', 'SBIA', False)]
+
+
+# Options for extensions
+# ----------------------
+
+doxylink                = {}
+breathe_projects        = {}
+breathe_default_project = ''

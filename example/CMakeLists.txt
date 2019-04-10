@@ -1,0 +1,7 @@
+
+install(
+  DIRECTORY ex0
+  DESTINATION example
+  USE_SOURCE_PERMISSIONS
+  PATTERN ".svn" EXCLUDE
+)
