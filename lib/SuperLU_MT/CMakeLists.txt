@@ -1,6 +1,0 @@
-add_library(SuperLU_MT superlu_timer.c dclock.c sp_ienv.c lsame.c xerbla.c util.c pmemory.c qrnzcnt.c await.c get_perm_c.c mmd.c colamd.c sp_coletree.c pxgstrf_scheduler.c sp_colorder.c pxgstrf_mark_busy_descends.c pxgstrf_pruneL.c pxgstrf_super_bnd_dfs.c pxgstrf_relax_snode.c heap_relax_snode.c pxgstrf_synch.c pxgstrf_finalize.c dreadhb.c dreadrb.c dmatgen.c pdgssv.c pdgssvx.c dgstrs.c dgsrfs.c dgscon.c dlacon.c dlangs.c dgsequ.c dlaqgs.c dpivotgrowth.c pdmemory.c pdutil.c dmyblas2.c pdgstrf.c pdgstrf_init.c pdgstrf_thread.c pdgstrf_thread_init.c pdgstrf_thread_finalize.c pdgstrf_factor_snode.c pdgstrf_snode_dfs.c pdgstrf_snode_bmod.c pdgstrf_panel_dfs.c pdgstrf_panel_bmod.c pdgstrf_copy_to_ucol.c pdgstrf_pivotL.c pdgstrf_column_dfs.c pdgstrf_column_bmod.c pdgstrf_bmod1D.c pdgstrf_bmod2D.c pdgstrf_bmod1D_mv2.c pdgstrf_bmod2D_mv2.c dsp_blas2.c dsp_blas3.c)
-
-if ( CMAKE_COMPILER_IS_GNUCC )
-    # This is tested
-    set_property( TARGET SuperLU_MT APPEND_STRING PROPERTY COMPILE_FLAGS -w )
-endif ( CMAKE_COMPILER_IS_GNUCC )
