@@ -1,6 +1,6 @@
 FROM centos6.10
 
-MAINTAINER sbia/cbica sbia/cbica.edu
+MAINTAINER cbica-cluster cbica-cluster.uphs.upenn.edu
 
 RUN ifdown eth0; \
     ifup eth0; \
