@@ -2,10 +2,12 @@ FROM centos6.10
 
 MAINTAINER cbica-cluster cbica-cluster.uphs.upenn.edu
 
+#sets up connection to download files
 RUN ifdown eth0; \
     ifup eth0; \
     yum update -y
 
+#general dependencies
 RUN yum install -y \
     gcc gcc-c++ \
     wget \
@@ -22,6 +24,7 @@ RUN yum install -y \
     fftw \
     fftw-devel
 
+#ITK-3.14.0
 RUN wget https://github.com/InsightSoftwareConsortium/ITK/archive/v3.14.0.zip; \
     unzip v3.14.0.zip; \
     cd ITK-3.14.0; \
@@ -43,12 +46,14 @@ RUN wget https://github.com/InsightSoftwareConsortium/ITK/archive/v3.14.0.zip; \
 RUN make
 ENV CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:'pwd'
 
+#PETSc-3.5.2
 RUN wget https:/www.mcs.anl.gov/petsc/mirror/release-snapshots/petsc-3.5.2.tar.gz
 RUN tar xzf petsc-3.5.2.tar.gz; \
     cd petsc-3.5.2; \
     sudo ./configure --with-mpi=0 --download-f2cblaslapack=1; \
     sudo make PETSC_DIR=/home/root/petsc-3.5.2 PETSC_ARCH=arch-linux2-c-debug all
 
+#BTMCS-1.2.1
 RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
 	unzip 1.2.1.zip; \
 	mkdir btmcs-1.2.1-build; \
@@ -65,6 +70,7 @@ RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
     ../BTMCS-1.2.1
 RUN make
 
+#HOPSPACK-2.0.2
 RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz; \
     gzip -d hopspack-2.0.2-src.tar.gz; \
     tar xf hopspack-2.0.2-src.tar; \
@@ -97,9 +103,11 @@ RUN make; \
 	../..
 RUN make
 
+#FSL
 RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py
 RUN python fslinstaller.py
 
+#GLISTR-3.1.1
 RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
 	unzip 3.1.1.zip; \
 	cd GLISTR-3.1.1; \
