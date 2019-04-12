@@ -1,4 +1,4 @@
-FROM centos6.10
+FROM centos:6.10
 
 MAINTAINER cbica-cluster cbica-cluster.uphs.upenn.edu
 
