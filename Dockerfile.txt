@@ -115,6 +115,6 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
     -DCMAKE_INSTALL_PREFIX=/GLISTR-3.1.1 \
     -DCMAKE_BUILD_TYPE=Release \
     -DITK_DIR=/ITK-3.14.0/bin \
-    -DCUDA_SEPARABLE_COMPILATION=OFF 
-RUN make; \
+    -DCUDA_SEPARABLE_COMPILATION=OFF; \
+    make; \
     make install
