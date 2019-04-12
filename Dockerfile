@@ -1,6 +1,6 @@
 FROM centos:6.10
 
-MAINTAINER cbica-cluster cbica-cluster.uphs.upenn.edu
+MAINTAINER cbica-cluster cbica-cluster@uphs.upenn.edu
 
 #update
 RUN yum update -y
@@ -38,7 +38,7 @@ RUN wget https://github.com/InsightSoftwareConsortium/ITK/archive/v3.14.0.zip; \
     -DITK_USE_PATENTED:BOOL=TRUE \
     -DBUILD_EXAMPLES=OFF \
     -DBUILD_SHARED_LIBS=ON \
-    -DB_TESTING=OFF \
+    -DBUILD_TESTING=OFF \
     -DCMAKE_BUILD_TYPE:STRING=RELEASE \
     -Wno-dev ..; \
     make; \
@@ -115,6 +115,7 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
     -DCMAKE_INSTALL_PREFIX=/GLISTR-3.1.1 \
     -DCMAKE_BUILD_TYPE=Release \
     -DITK_DIR=/ITK-3.14.0/bin \
-    -DCUDA_SEPARABLE_COMPILATION=OFF; \
+    -DCUDA_SEPARABLE_COMPILATION=OFF \
+    ..; \
     make; \
     make install
