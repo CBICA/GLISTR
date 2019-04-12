@@ -62,7 +62,7 @@ RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
     -DCMAKE_INSTALL_PREFIX=/btmcs-1.2.1-build \
     -DITK_DIR=/ITK-3.14.0/bin \
     -DMAKE_EXECUTABLE=/usr/bin/make \
-    -DPETSC_ARCH=arch-linux2-c-debug \
+    -DPETSC_ARCH=/arch-linux2-c-debug \
     -DPETSC_CURRENT=ON \
     -DPETSC_DIR=/petsc-3.5.2 \
     ../BTMCS-1.2.1; \
@@ -103,7 +103,7 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
 
 #FSL
 RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py; \
-    python fslinstaller.py
+    python fslinstaller.py -d /fsl
 
 #GLISTR-3.1.1
 RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
