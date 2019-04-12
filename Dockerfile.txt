@@ -2,10 +2,8 @@ FROM centos6.10
 
 MAINTAINER cbica-cluster cbica-cluster.uphs.upenn.edu
 
-#sets up connection to download files
-RUN ifdown eth0; \
-    ifup eth0; \
-    yum update -y
+#update
+RUN yum update -y
 
 #general dependencies
 RUN yum install -y \
@@ -42,33 +40,33 @@ RUN wget https://github.com/InsightSoftwareConsortium/ITK/archive/v3.14.0.zip; \
     -DBUILD_SHARED_LIBS=ON \
     -DB_TESTING=OFF \
     -DCMAKE_BUILD_TYPE:STRING=RELEASE \
-    -Wno-dev ..
-RUN make
-ENV CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:'pwd'
+    -Wno-dev ..; \
+    make; \
+    export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:'pwd'
 
 #PETSc-3.5.2
-RUN wget https:/www.mcs.anl.gov/petsc/mirror/release-snapshots/petsc-3.5.2.tar.gz
-RUN tar xzf petsc-3.5.2.tar.gz; \
+RUN wget https://www.mcs.anl.gov/petsc/mirror/release-snapshots/petsc-3.5.2.tar.gz; \
+    tar xzf petsc-3.5.2.tar.gz; \
     cd petsc-3.5.2; \
-    sudo ./configure --with-mpi=0 --download-f2cblaslapack=1; \
-    sudo make PETSC_DIR=/home/root/petsc-3.5.2 PETSC_ARCH=arch-linux2-c-debug all
+    ./configure --with-mpi=0 --download-f2cblaslapack=1; \
+    make PETSC_DIR=/petsc-3.5.2 PETSC_ARCH=arch-linux2-c-debug all
 
 #BTMCS-1.2.1
 RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
-	unzip 1.2.1.zip; \
-	mkdir btmcs-1.2.1-build; \
+    unzip 1.2.1.zip; \
+    mkdir btmcs-1.2.1-build; \
     cd btmcs-1.2.1-build; \
     cmake \
     -DBUILD_TESTING=ON \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/home/root/btmcs-1.2.1-build \
-    -DITK_DIR=/home/root/ITK-3.14.0/bin \
+    -DCMAKE_INSTALL_PREFIX=/btmcs-1.2.1-build \
+    -DITK_DIR=/ITK-3.14.0/bin \
     -DMAKE_EXECUTABLE=/usr/bin/make \
     -DPETSC_ARCH=arch-linux2-c-debug \
     -DPETSC_CURRENT=ON \
-    -DPETSC_DIR=/home/root/petsc-3.5.2 \
-    ../BTMCS-1.2.1
-RUN make
+    -DPETSC_DIR=/petsc-3.5.2 \
+    ../BTMCS-1.2.1; \
+    make
 
 #HOPSPACK-2.0.2
 RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz; \
@@ -79,44 +77,44 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     cd bin; \
     mkdir serial \
     mt \
-    mpi
-RUN cd serial; \
-	cmake \
+    mpi; \
+    cd serial; \
+    cmake \
     -DCMAKE_INSTALL_PREFIX=/sbia/cbica/software/external/hopspack/centOS6/2.0.2 \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DLAPACK_LIBS=/usr/lib64/liblapack.so \
-	-Ddebug=ON \
-	-Dlapack=ON \
-	-Dmpi=OFF \
-	-Dmt=OFF \
-	../.. 
-RUN make; \
-	cd ../mt; \
-	cmake \
-	-DCMAKE_INSTALL_PREFIX=/sbia/cbica/software/external/hopspack/centOS6/2.0.2 \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DLAPACK_LIBS=/usr/lib64/liblapack.so \
-	-Ddebug=ON \
-	-Dlapack=ON \
-	-Dmpi=OFF \
-	-Dmt=ON \
-	../..
-RUN make
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLAPACK_LIBS=/usr/lib64/liblapack.so \
+    -Ddebug=ON \
+    -Dlapack=ON \
+    -Dmpi=OFF \
+    -Dmt=OFF \
+    ../..; \ 
+    make; \
+    cd ../mt; \
+    cmake \
+    -DCMAKE_INSTALL_PREFIX=/sbia/cbica/software/external/hopspack/centOS6/2.0.2 \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLAPACK_LIBS=/usr/lib64/liblapack.so \
+    -Ddebug=ON \
+    -Dlapack=ON \
+    -Dmpi=OFF \
+    -Dmt=ON \
+    ../..; \
+    make
 
 #FSL
-RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py
-RUN python fslinstaller.py
+RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py; \
+    python fslinstaller.py
 
 #GLISTR-3.1.1
 RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
-	unzip 3.1.1.zip; \
-	cd GLISTR-3.1.1; \
-	mkdir bin; \
-	cd bin; \
-	cmake \
-	-DCMAKE_INSTALL_PREFIX=/home/root/GLISTR-3.1.1 \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DITK_DIR=/home/root/ITK-3.14.0/bin \
-	-DCUDA_SEPARABLE_COMPILATION=OFF 
+    unzip 3.1.1.zip; \
+    cd GLISTR-3.1.1; \
+    mkdir bin; \
+    cd bin; \
+    cmake \
+    -DCMAKE_INSTALL_PREFIX=/GLISTR-3.1.1 \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DITK_DIR=/ITK-3.14.0/bin \
+    -DCUDA_SEPARABLE_COMPILATION=OFF 
 RUN make; \
-	make install
+    make install
