@@ -101,9 +101,9 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     ../..; \
     make
 
-#FSL
+#FSL-5.0.10 Installer-3.0.16
 RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py; \
-    python fslinstaller.py -d /fsl
+    python fslinstaller.py -d /fsl -V 5.0.10
 
 #GLISTR-3.1.1
 RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
@@ -112,7 +112,7 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
     mkdir bin; \
     cd bin; \
     cmake \
-    -DCMAKE_INSTALL_PREFIX=/GLISTR-3.1.1 \
+    -DCMAKE_INSTALL_PREFIX=./install \
     -DCMAKE_BUILD_TYPE=Release \
     -DITK_DIR=/ITK-3.14.0/bin \
     -DCUDA_SEPARABLE_COMPILATION=OFF \
@@ -121,4 +121,4 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
     make install
 
 #Run GLISTR-3.1.1
-ENTRYPOINT ["/GLISTR-3.1.1/bin/GLISTR"]
+ENTRYPOINT ["/GLISTR-3.1.1/bin/install/bin/GLISTR"]
