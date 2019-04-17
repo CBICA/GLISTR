@@ -119,3 +119,6 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
     ..; \
     make; \
     make install
+
+#Run GLISTR-3.1.1
+ENTRYPOINT ["GLISTR-3.1.1/bin/GLISTR"]
