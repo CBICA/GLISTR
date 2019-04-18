@@ -1,6 +1,6 @@
 FROM centos:6.10
 
-MAINTAINER cbica-cluster cbica-cluster@uphs.upenn.edu
+MAINTAINER CBICA_UPenn software@cbica.upenn.edu
 
 #update
 RUN yum update -y
