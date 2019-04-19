@@ -1,0 +1,31 @@
+#Tutorial for creating a Dockerfile
+#Example Dockerfile can be found at CBICA/GLISTR git-hub repo
+
+#FROM pulls an existing image from Public Docker Repositories
+#this typically functions to pull an instance of an OS to run the software
+FROM OS:OSversion
+
+#MAINTAINER [DEPRECATED] identifies the author for the generated image
+MAINTAINER CBICA_UPenn software@cbica.upenn.edu
+
+#RUN executes the command as if it is in the shell of the OS pulled
+#this is where all dependencies and the software itself is installed
+#Whenever RUN is started, the commands are executed in the base directory "/"
+#If a RUN command involves making and moving to subdirectories, the next RUN will begin at "/"
+#To include multiple commands in a single RUN, end all commands with "; \" except the last command
+RUN apt-get install -y \
+    gcc \
+    gcc-c++ \
+    cmake \
+    unzip \
+    wget
+
+RUN mkdir example; \
+    cd example; \
+    touch executable; \
+    chmod -x executable
+
+#ENTRYPOINT runs the executable or command when the image is ran as an executable
+#In this form of ENTRYPOINT, the absolute path to the executable should be used
+#This form allows for arguments of the executable to be ran in the commandline when running the docker image executable
+ENTRYPOINT ["/example/executable"]
