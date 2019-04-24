@@ -82,7 +82,7 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     mpi; \
     cd serial; \
     cmake \
-    -DCMAKE_INSTALL_PREFIX=/sbia/cbica/software/external/hopspack/centOS6/2.0.2 \
+    -DCMAKE_INSTALL_PREFIX=./install \
     -DCMAKE_BUILD_TYPE=Release \
     -DLAPACK_LIBS=/usr/lib64/liblapack.so \
     -Ddebug=ON \
@@ -93,7 +93,7 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     make; \
     cd ../mt; \
     cmake \
-    -DCMAKE_INSTALL_PREFIX=/sbia/cbica/software/external/hopspack/centOS6/2.0.2 \
+    -DCMAKE_INSTALL_PREFIX=./install \
     -DCMAKE_BUILD_TYPE=Release \
     -DLAPACK_LIBS=/usr/lib64/liblapack.so \
     -Ddebug=ON \
@@ -104,7 +104,7 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     make; \
     cd ../mpi; \
     cmake \
-    -DCMAKE_INSTALL_PREFIX=/sbia/cbica/software/external/hopspack/centOS6/2.0.2 \
+    -DCMAKE_INSTALL_PREFIX=./install \
     -DCMAKE_BUILD_TYPE=Release \
     -DLAPACK_LIBS=/usr/lib64/liblapack.so \
     -Ddebug=ON \
