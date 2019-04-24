@@ -20,7 +20,9 @@ RUN yum install -y \
     tk \
     tk-devel \
     fftw \
-    fftw-devel
+    fftw-devel \
+    mpich \
+    mpich-devel
 
 #ITK-3.14.0
 RUN wget https://github.com/InsightSoftwareConsortium/ITK/archive/v3.14.0.zip; \
@@ -98,6 +100,18 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     -Dlapack=ON \
     -Dmpi=OFF \
     -Dmt=ON \
+    ../..; \
+    make; \
+    cd ../mpi; \
+    cmake \
+    -DCMAKE_INSTALL_PREFIX=/sbia/cbica/software/external/hopspack/centOS6/2.0.2 \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLAPACK_LIBS=/usr/lib64/liblapack.so \
+    -Ddebug=ON \
+    -Dlapack=ON \
+    -Dmpi=ON \
+    -Dmt=OFF \
+    -DMPI_COMPILER=/usr/lib64/mpich/bin/mpicxx \
     ../..; \
     make
 
