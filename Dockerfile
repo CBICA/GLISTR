@@ -68,7 +68,7 @@ RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
     -DPETSC_ARCH=/arch-linux2-c-debug \
     -DPETSC_CURRENT=ON \
     -DPETSC_DIR=/petsc-3.5.2 \
-    -DMPI_COMPILER=/usr/lib64/mpich/bin/mpicxx
+    -DMPI_COMPILER=/usr/lib64/mpich/bin/mpicxx \
     ../BTMCS-1.2.1; \
     make
 
