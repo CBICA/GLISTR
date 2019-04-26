@@ -119,7 +119,7 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     mkdir bin; \
     cp -r ../serial/{examples,LICENSE,src,test} .; \
     cp -r ../doc/ .; \
-    cp ../*/HOPSPACK_main_* bin
+    cp ../*/HOPSPACK_main_* bin/
 
 #FSL-5.0.10 Installer-3.0.16
 RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py; \
