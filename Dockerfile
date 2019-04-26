@@ -77,25 +77,23 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     gzip -d hopspack-2.0.2-src.tar.gz; \
     tar xf hopspack-2.0.2-src.tar; \
     cd hopspack-2.0.2-src; \
-    mkdir bin; \
-    cd bin; \
     mkdir serial \
     mt \
     mpi; \
     cd serial; \
     cmake \
-    -DCMAKE_INSTALL_PREFIX=./install \
+    -DCMAKE_INSTALL_PREFIX=/hopspack-2.0.2-src/install \
     -DCMAKE_BUILD_TYPE=Release \
     -DLAPACK_LIBS=/usr/lib64/liblapack.so \
     -Ddebug=ON \
     -Dlapack=ON \
     -Dmpi=OFF \
     -Dmt=OFF \
-    ../..; \ 
+    ..; \ 
     make; \
     cd ../mt; \
     cmake \
-    -DCMAKE_INSTALL_PREFIX=./install \
+    -DCMAKE_INSTALL_PREFIX=/hopspack-2.0.2-src/install \
     -DCMAKE_BUILD_TYPE=Release \
     -DLAPACK_LIBS=/usr/lib64/liblapack.so \
     -Ddebug=ON \
@@ -106,7 +104,7 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     make; \
     cd ../mpi; \
     cmake \
-    -DCMAKE_INSTALL_PREFIX=./install \
+    -DCMAKE_INSTALL_PREFIX=/hopspack-2.0.2-src/install \
     -DCMAKE_BUILD_TYPE=Release \
     -DLAPACK_LIBS=/usr/lib64/liblapack.so \
     -Ddebug=ON \
@@ -115,7 +113,13 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     -Dmt=OFF \
     -DMPI_COMPILER=/usr/lib64/mpich/bin/mpicxx \
     ../..; \
-    make
+    make; \
+    cd ..; \
+    mkdir install && cd install; \
+    mkdir bin; \
+    cp -r ../serial/{examples,LICENSE,src,test} .; \
+    cp -r ../doc/ .; \
+    cp ../*/HOPSPACK_main_* bin
 
 #FSL-5.0.10 Installer-3.0.16
 RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py; \
