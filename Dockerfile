@@ -139,6 +139,9 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
     ..; \
     make; \
     make install
+    
+#copy HOPSPACK mt to GLISTR so it can be read
+RUN cp hopspack-2.0.2-src/install/bin/HOPSPACK_main_threaded GLISTR-3.1.1/bin/install/bin/
 
 #Run GLISTR-3.1.1
 ENTRYPOINT ["/GLISTR-3.1.1/bin/install/bin/GLISTR"]
