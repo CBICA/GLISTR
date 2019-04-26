@@ -50,8 +50,9 @@ RUN wget https://github.com/InsightSoftwareConsortium/ITK/archive/v3.14.0.zip; \
 RUN wget https://www.mcs.anl.gov/petsc/mirror/release-snapshots/petsc-3.5.2.tar.gz; \
     tar xzf petsc-3.5.2.tar.gz; \
     cd petsc-3.5.2; \
-    ./configure --with-mpi=0 --download-f2cblaslapack=1; \
-    make PETSC_DIR=/petsc-3.5.2 PETSC_ARCH=arch-linux2-c-debug all
+    ./configure --with-mpi=0 --download-f2cblaslapack=1 --prefix=./build; \
+    make PETSC_DIR=/petsc-3.5.2 PETSC_ARCH=arch-linux2-c-debug all; \
+    make PETSC_DIR=/petsc-3.5.2 PETSC_ARCH=arch-linux2-c-debug install
 
 #BTMCS-1.2.1
 RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
@@ -67,6 +68,7 @@ RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
     -DPETSC_ARCH=/arch-linux2-c-debug \
     -DPETSC_CURRENT=ON \
     -DPETSC_DIR=/petsc-3.5.2 \
+    -DMPI_COMPILER=/usr/lib64/mpich/bin/mpicxx
     ../BTMCS-1.2.1; \
     make
 
