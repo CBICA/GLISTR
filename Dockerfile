@@ -76,49 +76,43 @@ RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
 RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz; \
     gzip -d hopspack-2.0.2-src.tar.gz; \
     tar xf hopspack-2.0.2-src.tar; \
-    cd hopspack-2.0.2-src; \
-    mkdir serial \
-    mt \
-    mpi; \
+    mkdir hopspack-2.0.2-build && cd hopspack-2.0.2-build; \
+    mkdir serial mt mpi install; \
     cd serial; \
-    cmake \
-    -DCMAKE_INSTALL_PREFIX=/hopspack-2.0.2-src/install \
+    cmake ../../hopspack-2.0.2-src \
+    -DCMAKE_INSTALL_PREFIX=/hopspack-2.0.2-build/install \
     -DCMAKE_BUILD_TYPE=Release \
     -DLAPACK_LIBS=/usr/lib64/liblapack.so \
     -Ddebug=ON \
     -Dlapack=ON \
     -Dmpi=OFF \
-    -Dmt=OFF \
-    ..; \ 
+    -Dmt=OFF; \ 
     make; \
     cd ../mt; \
-    cmake \
-    -DCMAKE_INSTALL_PREFIX=/hopspack-2.0.2-src/install \
+    cmake ../../hopspack-2.0.2-src \
+    -DCMAKE_INSTALL_PREFIX=/hopspack-2.0.2-build/install \
     -DCMAKE_BUILD_TYPE=Release \
     -DLAPACK_LIBS=/usr/lib64/liblapack.so \
     -Ddebug=ON \
     -Dlapack=ON \
     -Dmpi=OFF \
-    -Dmt=ON \
-    ../..; \
+    -Dmt=ON; \
     make; \
     cd ../mpi; \
-    cmake \
-    -DCMAKE_INSTALL_PREFIX=/hopspack-2.0.2-src/install \
+    cmake ../../hopspack-2.0.2-src \
+    -DCMAKE_INSTALL_PREFIX=/hopspack-2.0.2-build/install \
     -DCMAKE_BUILD_TYPE=Release \
     -DLAPACK_LIBS=/usr/lib64/liblapack.so \
     -Ddebug=ON \
     -Dlapack=ON \
     -Dmpi=ON \
     -Dmt=OFF \
-    -DMPI_COMPILER=/usr/lib64/mpich/bin/mpicxx \
-    ../..; \
+    -DMPI_COMPILER=/usr/lib64/mpich/bin/mpicxx; \
     make; \
-    cd ..; \
-    mkdir install && cd install; \
+    cd ../install; \
     mkdir bin; \
     cp -r ../serial/{examples,LICENSE,src,test} .; \
-    cp -r ../doc/ .; \
+    cp -r ../..//hopspack-2.0.2-src/doc/ .; \
     cp ../*/HOPSPACK_main_* bin/
 
 #FSL-5.0.10 Installer-3.0.16
