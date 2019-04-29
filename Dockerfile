@@ -138,7 +138,7 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
 #copy runtime dependencies into GLISTR 
 RUN cp hopspack-2.0.2-build/install/bin/HOPSPACK_main_threaded GLISTR-3.1.1/bin/install/bin/; \
     cp fsl/bin/flirt GLISTR-3.1.1/bin/install/bin/; \
-    cp fsl/bin/convert-xfm GLISTR-3.1.1/bin/install/bin/; \
+    cp fsl/bin/convert_xfm GLISTR-3.1.1/bin/install/bin/; \
     cp btmcs-1.2.1-build/bin/ForwardSolverDiffusion GLISTR-3.1.1/bin/install/bin/
 
 #Run GLISTR-3.1.1
