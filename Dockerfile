@@ -70,7 +70,8 @@ RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
     -DPETSC_DIR=/petsc-3.5.2 \
     -DMPI_COMPILER=/usr/lib64/mpich/bin/mpicxx \
     ../BTMCS-1.2.1; \
-    make
+    make; \
+    make install
 
 #HOPSPACK-2.0.2
 RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz; \
@@ -138,7 +139,7 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
 RUN cp hopspack-2.0.2-build/install/bin/HOPSPACK_main_threaded GLISTR-3.1.1/bin/install/bin/; \
     cp fsl/bin/flirt GLISTR-3.1.1/bin/install/bin/; \
     cp fsl/bin/convert-xfm GLISTR-3.1.1/bin/install/bin/; \
-    cp btmcs-1.2.1-build/ForwardSolverDiffusion GLISTR-3.1.1/bin/install/bin/
+    cp btmcs-1.2.1-build/bin/ForwardSolverDiffusion GLISTR-3.1.1/bin/install/bin/
 
 #Run GLISTR-3.1.1
 ENTRYPOINT ["/GLISTR-3.1.1/bin/install/bin/GLISTR"]
