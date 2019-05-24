@@ -120,8 +120,8 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
 RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py; \
     python fslinstaller.py -d /fsl -V 5.0.10
 
-#GLISTR-3.1.1
-RUN wget https://github.com/CBICA/GLISTR/archive/3.1.1.zip; \
+#GLISTR-3.1.0
+RUN wget https://github.com/CBICA/GLISTR/archive/3.1.0.zip; \
     unzip 3.1.1.zip; \
     cd GLISTR-3.1.1; \
     mkdir bin; \
