@@ -24,10 +24,10 @@ RUN yum install -y \
     mpich \
     mpich-devel
 
-#ITK-3.14.0
-RUN wget https://github.com/InsightSoftwareConsortium/ITK/archive/v3.14.0.zip; \
-    unzip v3.14.0.zip; \
-    cd ITK-3.14.0; \
+#ITK-4.7.0
+RUN wget https://github.com/InsightSoftwareConsortium/ITK/archive/v4.7.0.zip; \
+    unzip v4.7.0.zip; \
+    cd ITK-4.7.0; \
     mkdir bin; \
     cd bin; \
     cmake \
@@ -63,7 +63,7 @@ RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
     -DBUILD_TESTING=ON \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/btmcs-1.2.1-build \
-    -DITK_DIR=/ITK-3.14.0/bin \
+    -DITK_DIR=/ITK-4.7.0/bin \
     -DMAKE_EXECUTABLE=/usr/bin/make \
     -DPETSC_ARCH=/arch-linux2-c-debug \
     -DPETSC_CURRENT=ON \
@@ -122,24 +122,24 @@ RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py; \
 
 #GLISTR-3.1.0
 RUN wget https://github.com/CBICA/GLISTR/archive/3.1.0.zip; \
-    unzip 3.1.1.zip; \
-    cd GLISTR-3.1.1; \
+    unzip 3.1.0.zip; \
+    cd GLISTR-3.1.0; \
     mkdir bin; \
     cd bin; \
     cmake \
     -DCMAKE_INSTALL_PREFIX=./install \
     -DCMAKE_BUILD_TYPE=Release \
-    -DITK_DIR=/ITK-3.14.0/bin \
+    -DITK_DIR=/ITK-4.7.0/bin \
     -DCUDA_SEPARABLE_COMPILATION=OFF \
     ..; \
     make; \
     make install
     
 #copy runtime dependencies into GLISTR 
-RUN cp hopspack-2.0.2-build/install/bin/HOPSPACK_main_threaded GLISTR-3.1.1/bin/install/bin/; \
-    cp fsl/bin/flirt GLISTR-3.1.1/bin/install/bin/; \
-    cp fsl/bin/convert_xfm GLISTR-3.1.1/bin/install/bin/; \
-    cp btmcs-1.2.1-build/bin/ForwardSolverDiffusion GLISTR-3.1.1/bin/install/bin/
+RUN cp hopspack-2.0.2-build/install/bin/HOPSPACK_main_threaded GLISTR-3.1.0/bin/install/bin/; \
+    cp fsl/bin/flirt GLISTR-3.1.0/bin/install/bin/; \
+    cp fsl/bin/convert_xfm GLISTR-3.1.0/bin/install/bin/; \
+    cp btmcs-1.2.1-build/bin/ForwardSolverDiffusion GLISTR-3.1.0/bin/install/bin/
 
-#Run GLISTR-3.1.1
-ENTRYPOINT ["/GLISTR-3.1.1/bin/install/bin/GLISTR"]
+#Run GLISTR-3.1.0
+ENTRYPOINT ["/GLISTR-3.1.0/bin/install/bin/GLISTR"]
