@@ -44,7 +44,8 @@ RUN wget https://github.com/InsightSoftwareConsortium/ITK/archive/v4.7.0.zip; \
     -DCMAKE_BUILD_TYPE:STRING=RELEASE \
     -Wno-dev ..; \
     make; \
-    export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:'pwd'
+    export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:'pwd'; \
+    rm -rf v4.7.0.zip
 
 #PETSc-3.5.2
 RUN wget https://www.mcs.anl.gov/petsc/mirror/release-snapshots/petsc-3.5.2.tar.gz; \
@@ -71,7 +72,8 @@ RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
     -DMPI_COMPILER=/usr/lib64/mpich/bin/mpicxx \
     ../BTMCS-1.2.1; \
     make; \
-    make install
+    make install; \
+    rm -rf 1.2.1.zip
 
 #HOPSPACK-2.0.2
 RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz; \
@@ -116,9 +118,11 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     cp -r ../..//hopspack-2.0.2-src/doc/ .; \
     cp ../*/HOPSPACK_main_* bin/
 
-#FSL-5.0.10 Installer-3.0.16
-RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py; \
-    python fslinstaller.py -d /fsl -V 5.0.10
+#FSL-4.1.5
+RUN wget https://github.com/jminock/fsl-4.1.5/archive/master.zip; \
+    unzip master.zip; \
+    rm -rf master.zip
+    
 
 #GLISTR-3.1.0
 RUN wget https://github.com/CBICA/GLISTR/archive/3.1.0.zip; \
@@ -134,12 +138,16 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.0.zip; \
     -DBUILD_TESTING=OFF \
     ..; \
     make; \
-    make install
+    make install; \
+    rm -rf 3.1.0.zip
     
+ENV FSLDIR=/fsl-4.1.5-master/
+ENV FSLOUTPUTTYPE=NIFTI_PAIR
+ENV FSLMULTIFILEQUIT=TRUE
 #copy runtime dependencies into GLISTR 
 RUN cp hopspack-2.0.2-build/install/bin/HOPSPACK_main_threaded GLISTR-3.1.0/bin/install/bin/; \
-    cp fsl/bin/flirt GLISTR-3.1.0/bin/install/bin/; \
-    cp fsl/bin/convert_xfm GLISTR-3.1.0/bin/install/bin/; \
+    cp fsl-4.1.5-master/bin/flirt GLISTR-3.1.0/bin/install/bin/; \
+    cp fsl-4.1.5-master/bin/convert_xfm GLISTR-3.1.0/bin/install/bin/; \
     cp btmcs-1.2.1-build/bin/ForwardSolverDiffusion GLISTR-3.1.0/bin/install/bin/
 
 #Run GLISTR-3.1.0
