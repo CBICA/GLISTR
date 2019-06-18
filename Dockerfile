@@ -144,10 +144,12 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.0.zip; \
 ENV FSLDIR=/fsl-4.1.5-master/
 ENV FSLOUTPUTTYPE=NIFTI_PAIR
 ENV FSLMULTIFILEQUIT=TRUE
+ENV FLIRT_PATH=/GLISTR-3.1.0/bin/install/bin
+ENV MODULE_PATH=/GLISTR-3.1.0/bin/install/bin
 #copy runtime dependencies into GLISTR 
 RUN cp hopspack-2.0.2-build/install/bin/HOPSPACK_main_threaded GLISTR-3.1.0/bin/install/bin/; \
-    cp fsl-4.1.5-master/bin/flirt GLISTR-3.1.0/bin/install/bin/; \
-    cp fsl-4.1.5-master/bin/convert_xfm GLISTR-3.1.0/bin/install/bin/; \
+    cp fsl-4.1.5-master/bin/flirt GLISTR-3.1.0/bin/install/bin/flirt; \
+    cp fsl-4.1.5-master/bin/convert_xfm GLISTR-3.1.0/bin/install/bin/convert_xfm; \
     cp btmcs-1.2.1-build/bin/ForwardSolverDiffusion GLISTR-3.1.0/bin/install/bin/
 
 #Run GLISTR-3.1.0
