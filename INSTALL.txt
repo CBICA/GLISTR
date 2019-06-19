@@ -1,0 +1,47 @@
+
+  Section of Biomedical Image Analysis
+  Department of Radiology
+  University of Pennsylvania
+  3600 Market Street, Suite 380
+  Philadelphia, PA 19104
+
+  Web:   http://www.cbica.upenn.edu/sbia/
+  Email: sbia-software at uphs.upenn.edu
+
+  Copyright (c) 2014 University of Pennsylvania. All rights reserved.
+  See http://www.cbica.upenn.edu/sbia/software/license.html or COPYING file.
+
+
+
+INTRODUCTION
+============
+
+  See http://www.cbica.upenn.edu/sbia/software/glistr/installation.html or
+  the installation section of the software manual.
+
+
+
+Quick Summary of Installation
+=============================
+
+  * Step 1. Extract source files and create the build directory:
+
+    tar xzf glistr-${version}-source.tar.gz
+    mkdir glistr-${version}-build
+    cd glistr-${version}-build
+
+  * Step 2. Run CMake to configure the build tree:
+
+    ccmake ../glistr-${version}-source
+
+  * Step 3. Build:
+
+    make
+
+  * Step 4. Test (optional):
+
+    make test
+
+  * Step 5. Install:
+
+    make install

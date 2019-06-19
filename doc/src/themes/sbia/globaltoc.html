@@ -1,0 +1,11 @@
+{#
+    sbia/globaltoc.html
+    ~~~~~~~~~~~~~~~~~~~~
+
+    Sphinx sidebar template: global table of contents.
+
+    :copyright: Copyright 2014, University of Pennsylvania.
+    :license: See http://www.cbica.upenn.edu/sbia/software/license.html or COPYING file.
+#}
+<h3><a href="{{ pathto(master_doc) }}">{{ _('Table Of Contents') }}</a></h3>
+{{ toctree(includehidden=True) }}
