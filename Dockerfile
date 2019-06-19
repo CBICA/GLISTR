@@ -45,7 +45,7 @@ RUN wget https://github.com/InsightSoftwareConsortium/ITK/archive/v4.7.0.zip; \
     -Wno-dev ..; \
     make; \
     export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:'pwd'; \
-    rm -rf v4.7.0.zip
+    rm -rf /v4.7.0.zip
 
 #PETSc-3.5.2
 RUN wget https://www.mcs.anl.gov/petsc/mirror/release-snapshots/petsc-3.5.2.tar.gz; \
@@ -53,7 +53,8 @@ RUN wget https://www.mcs.anl.gov/petsc/mirror/release-snapshots/petsc-3.5.2.tar.
     cd petsc-3.5.2; \
     ./configure --with-mpi=0 --download-f2cblaslapack=1 --prefix=./build; \
     make PETSC_DIR=/petsc-3.5.2 PETSC_ARCH=arch-linux2-c-debug all; \
-    make PETSC_DIR=/petsc-3.5.2 PETSC_ARCH=arch-linux2-c-debug install
+    make PETSC_DIR=/petsc-3.5.2 PETSC_ARCH=arch-linux2-c-debug install; \
+    rm -rf /petsc-3.5.2.tar.gz
 
 #BTMCS-1.2.1
 RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
@@ -73,7 +74,7 @@ RUN wget https://github.com/CBICA/BTMCS/archive/1.2.1.zip; \
     ../BTMCS-1.2.1; \
     make; \
     make install; \
-    rm -rf 1.2.1.zip
+    rm -rf /1.2.1.zip
 
 #HOPSPACK-2.0.2
 RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz; \
@@ -116,7 +117,8 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
     mkdir bin; \
     cp -r ../serial/{examples,LICENSE,src,test} .; \
     cp -r ../..//hopspack-2.0.2-src/doc/ .; \
-    cp ../*/HOPSPACK_main_* bin/
+    cp ../*/HOPSPACK_main_* bin/; \
+    rm -rf hopspack-2.0.2-src.tar
 
 #FSL-4.1.5
 RUN wget https://github.com/jminock/fsl-4.1.5/archive/master.zip; \
@@ -139,13 +141,13 @@ RUN wget https://github.com/CBICA/GLISTR/archive/3.1.0.zip; \
     ..; \
     make; \
     make install; \
-    rm -rf 3.1.0.zip
+    rm -rf /3.1.0.zip
     
 ENV FSLDIR=/fsl-4.1.5-master/
 ENV FSLOUTPUTTYPE=NIFTI_PAIR
 ENV FSLMULTIFILEQUIT=TRUE
-ENV FLIRT_PATH=/GLISTR-3.1.0/bin/install/bin
-ENV MODULE_PATH=/GLISTR-3.1.0/bin/install/bin
+#ENV FLIRT_PATH=/GLISTR-3.1.0/bin/install/bin
+#ENV MODULE_PATH=/GLISTR-3.1.0/bin/install/bin
 #copy runtime dependencies into GLISTR 
 RUN cp hopspack-2.0.2-build/install/bin/HOPSPACK_main_threaded GLISTR-3.1.0/bin/install/bin/; \
     cp fsl-4.1.5-master/bin/flirt GLISTR-3.1.0/bin/install/bin/flirt; \
