@@ -123,6 +123,8 @@ RUN wget https://dakota.sandia.gov/sites/default/files/hopspack-2.0.2-src.tar.gz
 #FSL-4.1.5
 RUN wget https://github.com/jminock/fsl-4.1.5/archive/master.zip; \
     unzip master.zip; \
+    chmod +x fsl-4.1.5-master/bin/flirt; \
+    chmod +x fsl-4.1.5-master/bin/convert_xfm; \
     rm -rf master.zip
     
 
