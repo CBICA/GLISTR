@@ -1,0 +1,68 @@
+#!/bin/bash
+
+################################
+# GLISTR 3.1.0 Wrapper
+# Last Updated: June 26, 2019
+# For CUBIC Usage
+# Maintainer: James Minock James.Minock@uphs.upenn.edu
+#################################
+
+exedir=`dirname $0`
+
+
+if [ $GLISTR_VER == 3.1.0 ] ; then
+	echo $0 | grep -qiw glistr
+	if [ $? = 0 ] ; then
+		singularity run $exedir/../libexec/glistr-3.1.0-fslv415.simg $@
+	else
+		echo "No `basename $0` executable available under GLISTR version $GLISTR_VER"
+		exit
+	fi
+fi
+
+if [ $GLISTR_VER = 3.0.0 ] ; then
+	case $0 in
+	*glistr|*GLISTR)
+		echo "No GLISTR executable available under GLISTR version $GLISTR_VER"
+		exit
+		;;
+	*ConcatenateFields)
+		singularity exec $exedir/../libexec/glistr-3.0.0-fslv415.simg /GLISTR-3.0.0/bin/install/bin/ConcatenateFields $@
+		;;
+	*EvaluateQ)
+		singularity exec $exedir/../libexec/glistr-3.0.0-fslv415.simg /GLISTR-3.0.0/bin/install/bin/EvaluateQ $@
+		;;
+	*NormalizeImage)
+		singularity exec $exedir/../libexec/glistr-3.0.0-fslv415.simg /GLISTR-3.0.0/bin/install/bin/NormalizeImage $@
+		;;
+	*ResampleDeformationField)
+		singularity exec $exedir/../libexec/glistr-3.0.0-fslv415.simg /GLISTR-3.0.0/bin/install/bin/ResampleDeformationField $@
+		;;
+	*ResampleImage)
+		singularity exec $exedir/../libexec/glistr-3.0.0-fslv415.simg /GLISTR-3.0.0/bin/install/bin/ResampleImage $@
+		;;
+	*ReverseDeformationField)
+		singularity exec $exedir/../libexec/glistr-3.0.0-fslv415.simg /GLISTR-3.0.0/bin/install/bin/ReverseDeformationField $@
+		;;
+	*WarpImage)
+		singularity exec $exedir/../libexec/glistr-3.0.0-fslv415.simg /GLISTR-3.0.0/bin/install/bin/WarpImage $@
+		;;
+	*WarpImageNN)
+		singularity exec $exedir/../libexec/glistr-3.0.0-fslv415.simg /GLISTR-3.0.0/bin/install/bin/WarpImageNN $@
+		;;
+	*)
+		echo "Please choose from the list of executables:"
+		echo "glistr"
+		echo "ConcatenateFields"
+		echo "EvaluateQ"
+		echo "NormalizeImage"
+		echo "ResampleDeformationField"
+		echo "ResampleImage"
+		echo "ReverseDeformationField"
+		echo "WarpImage"
+		echo "WarpImageNN"
+	esac
+	exit
+fi
+
+echo "No `basename $0` executable available under GLISTR version $GLISTR_VER"
